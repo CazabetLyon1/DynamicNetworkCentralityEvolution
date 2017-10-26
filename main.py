@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-#from networkx.drawing.nx_agraph import graphviz_layout
+from networkx.drawing.nx_agraph import graphviz_layout
 #essai de graph
 
 G1=nx.read_graphml("data\GoT_S05E09_1039.graphml")
@@ -12,9 +12,14 @@ print(G1.number_of_edges())
 print(G1.neighbors("n23"))
 
 G1.remove_nodes_from(nx.isolates(G1))
+print(nx.get_node_attributes(G1,"label"))
+print(G1["n41"])
+#nx.draw_networkx(G1,pos=nx.spring_layout(G1))
+print(nx.degree_centrality(G1))
 
-nx.draw_networkx_labels(G1,pos=nx.spring_layout(G1))
-plt.draw()
+#plt.draw()
+
+
 
 
 """attributes = {
