@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets , QtCore, QtGui
-from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QApplication, QPushButton,QLabel
+from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QPushButton,QLabel,QAction, QLineEdit, QMessageBox
 from PyQt5.QtGui import QPixmap
 
 class Ui_MainWindow(QMainWindow):
@@ -29,15 +29,22 @@ class Ui_MainWindow(QMainWindow):
         self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
         self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)    
+                
+        # Create textbox
+        self.textbox = QLineEdit(self)
+        self.textbox.move(20, 20)
+        self.textbox.resize(280,40)
+ 
+        # Create a button in the window
+        self.button = QPushButton('Show text', self)
+        self.button.move(20,80)
+ 
+        # connect button to function on_click
+        self.button.clicked.connect(self.on_click)
+        self.show()
         
-        
-        button = QPushButton('PyQt5 button', self)
-        button.setToolTip('This is an example button')
-        button.move(400,170)
-        
-    def on_click(self):
-        print('PyQt5 button click')
+ 
         
     def showDialog(self):
         fileName = QFileDialog.getOpenFileName(self, 'Open file')[0]
@@ -53,13 +60,12 @@ class Ui_MainWindow(QMainWindow):
         self.actionOpen.setText(_translate("MainWindow","Open"))
         self.actionExit.setText(_translate("MainWindow","Exit"))
         
-    def initUI(self):
-        self.setGeometry(400,300,300,400)
-        # Create widget
-        label = QLabel(self)
-        pixmap = QPixmap('images/game.jpg')
-        label.setPixmap(pixmap)
-        self.resize(pixmap.width(),pixmap.height())
+        
+    def on_click(self):
+        textboxValue = self.textbox.text()
+        QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
+        self.textbox.setText("")
+        
         
 if __name__=='__main__':
     import sys
