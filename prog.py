@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets , QtCore, QtGui
-from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow
+from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QApplication, QPushButton,QLabel
 from PyQt5.QtGui import QPixmap
 
 class Ui_MainWindow(QMainWindow):
@@ -12,9 +12,6 @@ class Ui_MainWindow(QMainWindow):
         self.graphicsView.setGeometry(QtCore.QRect(10,10,556,392))
         self.graphicsView.setObjectName("graphicsView")
         
- 
-        
-        
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0,0,673,125))
@@ -24,20 +21,23 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setMenuBar(self.menubar)
         self.actionOpen = QtWidgets.QAction(MainWindow)
         self.actionOpen.setObjectName("actionOpen")
-        
         self.actionOpen.triggered.connect(self.showDialog)
-        
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
-        
         self.actionExit.triggered.connect(QApplication.quit)
-        
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
-        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        
+        button = QPushButton('PyQt5 button', self)
+        button.setToolTip('This is an example button')
+        button.move(400,170)
+        
+    def on_click(self):
+        print('PyQt5 button click')
         
     def showDialog(self):
         fileName = QFileDialog.getOpenFileName(self, 'Open file')[0]
@@ -53,11 +53,20 @@ class Ui_MainWindow(QMainWindow):
         self.actionOpen.setText(_translate("MainWindow","Open"))
         self.actionExit.setText(_translate("MainWindow","Exit"))
         
+    def initUI(self):
+        self.setGeometry(400,300,300,400)
+        # Create widget
+        label = QLabel(self)
+        pixmap = QPixmap('images/game.jpg')
+        label.setPixmap(pixmap)
+        self.resize(pixmap.width(),pixmap.height())
+        
 if __name__=='__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    
     MainWindow.show()
     sys.exit(app.exec_())
