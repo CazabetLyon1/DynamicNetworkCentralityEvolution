@@ -1,8 +1,19 @@
 from PyQt5 import QtWidgets , QtCore, QtGui
 from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QPushButton,QLabel,QAction, QLineEdit, QMessageBox, QInputDialog, QComboBox, QSpinBox
 from PyQt5.QtGui import QPixmap
+import sys
+sys.path.append(".")
+import lireGraph2
+
+
+
 
 class Ui_MainWindow():
+    
+    def __init__(self):
+        self.a =-1
+        self.nom=""
+        self.op=""
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -30,10 +41,7 @@ class Ui_MainWindow():
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
       
-        """
-        self.label = QLabel()
-        self.image = QPixmap("images/game.jpg")
-        self.label.setPixmap(self.image)"""
+
         
                 
         # Create textbox
@@ -51,20 +59,25 @@ class Ui_MainWindow():
         #Getchoice
         self.cb = QComboBox(MainWindow)
         self.cb.move(580,50)
-        self.cb.addItem("C")
-        self.cb.addItem("C++")
-        self.cb.addItems(["Java", "C#", "Python"])
+        self.cb.addItem("")
+        self.cb.addItem("Degree")
+        self.cb.addItem("Closeness")
+        self.cb.addItems(["Pagerank", "Betweeness"])
         self.cb.currentIndexChanged.connect(self.selectionchange)
+        
+        
         
         #object presents the user with a integer
         self.l1 = QLabel("current value:")
         self.l1.move(650,50)
         self.sp = QSpinBox(MainWindow)
+        self.sp.setMaximum(1049)
         self.sp.move(700,50)
         self.sp.valueChanged.connect(self.valuechange)
         
         
-    def showDialog(self):
+        
+    def showDialog(self): #permetde charger l'image avec la bar du menu
         fileName = QFileDialog.getOpenFileName(MainWindow, 'Open file')[0]
         print(fileName)
         self.scene = QGraphicsScene()
@@ -82,7 +95,16 @@ class Ui_MainWindow():
     def on_click(self):
         textboxValue = self.textbox.text()
         QMessageBox.question(MainWindow, 'ton texte', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
-        self.textbox.setText("")
+        #self.textbox.setText("")
+        self.nom = self.textbox.text()
+        print("yolo a!!!! la variable nom est")
+        print(self.nom)
+        print(self.op)
+        lireGraph2.start_main(self.a,self.nom,self.op)
+        self.scene = QGraphicsScene()
+        self.scene.clearSelection()
+        self.scene.addPixmap(QPixmap("images/" + self.nom +self.op+ ".jpg"))
+        self.graphicsView.setScene(self.scene)
         
         
     def selectionchange(self,i):
@@ -90,16 +112,31 @@ class Ui_MainWindow():
         for count in range(self.cb.count()):
             print (self.cb.itemText(count))
         print ("Current index",i,"selection changed ",self.cb.currentText())
+        self.op = self.cb.currentText()
+        def f(x):
+            return {
+                    "" : 'essai',
+                    "Degree" : 'd',
+                    "Closeness" : 'c',
+                    "Pagerank" : 'p',
+                    "Betweeness" : 'b'
+                    }[x]
+        self.op=f(self.op)
+        print(self.op)
+        
         
         
     def valuechange(self):
       self.l1.setText("current value:"+str(self.sp.value()))
       print(self.sp.value())
+      self.a = self.sp.value() #affectation valeur int 
         
         
 if __name__=='__main__':
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
+    
+    app= QtCore.QCoreApplication.instance()
+    if app is None:    
+        app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
