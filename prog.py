@@ -95,7 +95,6 @@ class Ui_MainWindow():
     def on_click(self):
         textboxValue = self.textbox.text()
         QMessageBox.question(MainWindow, 'ton texte', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
-        #self.textbox.setText("")
         self.nom = self.textbox.text()
         print("yolo a!!!! la variable nom est")
         print(self.nom)
@@ -129,7 +128,14 @@ class Ui_MainWindow():
     def valuechange(self):
       self.l1.setText("current value:"+str(self.sp.value()))
       print(self.sp.value())
-      self.a = self.sp.value() #affectation valeur int 
+      self.a = self.sp.value() #affectation valeur int
+      
+    def text_changed(self):
+        """ updates the list of possible completions each time a key is 
+            pressed """
+        pattern = str(self.le.text())
+        self.new_list = [item for item in lireGraph2.dicoNomToNum if item.find(pattern) == 0]
+        self.lm.setAllData(self.new_list)
         
         
 if __name__=='__main__':

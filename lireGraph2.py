@@ -2,7 +2,7 @@ import networkx as nx
 import os 
 import seaborn as sns
 import matplotlib.pyplot as plt
-#from networkx.drawing.nx_agraph import graphviz_layout
+from networkx.drawing.nx_agraph import graphviz_layout
 
 
 tableau_closeness_centrality = []
@@ -47,6 +47,8 @@ def recherche_nom(nom, operations) :
     type_centralite_voulu(numNoeud, operations)
     
     plt.savefig("images/" + nom + operations + ".jpg")
+    
+    plt.clf()
 
 
 def start_main(nbScenes, nom, operations) :
@@ -74,9 +76,15 @@ def start_main(nbScenes, nom, operations) :
         tableau_pagerank.append(nx.pagerank(l))
         tableau_betweeness.append(nx.betweenness_centrality(l))
             
+#    graph_style(liste_graph)
     recherche_nom(nom, operations)
  
- 
+"""  
+def graph_style(liste) : 
+    for l in liste :
+        l.remove_nodes_from(nx.isolates(l))  #==> Pour enlever les isolates mais on doit les garder pour avoir de bonnes valeurs sur la courbe
+        nx.draw_networkx(l,pos=nx.spring_layout(l)) 
+"""
 #start_main(20, "Tyrion Lannister", "p")
 
 
