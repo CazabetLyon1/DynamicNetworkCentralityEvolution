@@ -51,9 +51,18 @@ def recherche_nom(nom, operations) :
     plt.clf()
 
 
-def start_main(nbScenes, nom, operations) :
-    """ On crée un dictionnaire qui associe les noms des persos à leur numéro de noeud """
-    G1=nx.read_graphml("data\GoT_S05E09_1039.graphml")
+def start_main(Nomserie,nbScenes, nom, operations) :
+    
+    if Nomserie == "Game of Thrones":
+        """ On crée un dictionnaire qui associe les noms des persos à leur numéro de noeud """
+        G1=nx.read_graphml("data/got/GoT_S05E09_1039.graphml")
+        serie ="got"
+    if Nomserie ==  "Breaking Bad":
+        G1=nx.read_graphml("data/bb/BB_S03E11_598.graphml")
+        serie = "bb"
+    if Nomserie == "House of Card":
+        G1=nx.read_graphml("data/hoc/HoC_S02E13_879.graphml")
+        serie = "hoc"
     dicoNumToNom = nx.get_node_attributes(G1,"label")
     for cle in dicoNumToNom : 
         dicoNomToNum[dicoNumToNom[cle]] = cle
@@ -63,8 +72,8 @@ def start_main(nbScenes, nom, operations) :
     if plage > 1039 :
         plage = 1039
     liste_graph = []
-    for element in os.listdir('data')[:plage]:
-        liste_graph.append(nx.read_graphml('data\\' + str(element)))
+    for element in os.listdir('data/'+serie+'/' )[:plage]:
+        liste_graph.append(nx.read_graphml("data\\"+serie+"\\"+ str(element)))
             
    
     for l in liste_graph :
@@ -85,7 +94,7 @@ def graph_style(liste) :
         l.remove_nodes_from(nx.isolates(l))  #==> Pour enlever les isolates mais on doit les garder pour avoir de bonnes valeurs sur la courbe
         nx.draw_networkx(l,pos=nx.spring_layout(l)) 
 """
-#start_main(20, "Tyrion Lannister", "p")
+#start_main("Breaking Bad",200, "Walter White", "d")
 
 
 """ 
