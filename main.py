@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets , QtCore, QtGui
-from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QPushButton,QLabel,QAction, QLineEdit, QMessageBox, QInputDialog, QComboBox, QSpinBox
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QPushButton,QLabel,QAction, QLineEdit, QMessageBox, QInputDialog, QComboBox, QSpinBox, QProgressBar
+from PyQt5.QtGui import QPixmap,QIcon
+from PyQt5.QtCore import QBasicTimer
 import sys
 sys.path.append(".")
 import lireGraph2
@@ -15,6 +16,8 @@ class Ui_MainWindow():
         self.nom=""
         self.op=""
         self.Nomserie=""
+        self.step=0
+        self.time=False
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -36,7 +39,13 @@ class Ui_MainWindow():
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
         self.actionExit.triggered.connect(QApplication.quit)
+        
+        self.actionAbout = QtWidgets.QAction(MainWindow)
+        self.actionAbout.setObjectName("actionAbout")
+        self.actionAbout.triggered.connect(self.showAbout)
+        
         self.menuFile.addAction(self.actionOpen)
+        self.menuFile.addAction(self.actionAbout)  #<------
         self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
         self.retranslateUi(MainWindow)
@@ -85,9 +94,17 @@ class Ui_MainWindow():
         self.cb2.addItem("House of Card")
         self.cb2.currentIndexChanged.connect(self.selectionchange2)
         
+        if self.time == False :
+            #ProgressBar
+            self.bar = QProgressBar(MainWindow)
+            self.bar.setGeometry(50, 80, 500, 39)
+            self.bar.move(140,650)
+            self.bar.setMaximum(50)
+            self.bar.setMinimum(0)
+            
         
-        
-        
+ 
+   
     def showDialog(self): #permetde charger l'image avec la bar du menu
         fileName = QFileDialog.getOpenFileName(MainWindow, 'Open file')[0]
         print(fileName)
@@ -95,19 +112,26 @@ class Ui_MainWindow():
         self.scene.addPixmap(QPixmap(fileName))
         self.graphicsView.setScene(self.scene)
         
+    def showAbout(self):#permet d'afficher le about du menu
+        QMessageBox.question(MainWindow,'About',"authors of the program: Yannis Hutt and Julien Cadier", QMessageBox.Ok, QMessageBox.Ok)
+
+        
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Mainwindow"))
         self.menuFile.setTitle(_translate("MainWindow","F&ile"))
         self.actionOpen.setText(_translate("MainWindow","Open"))
+        self.actionAbout.setText(_translate("MainWindow","About"))
         self.actionExit.setText(_translate("MainWindow","Exit"))
         
         
     def on_click(self):
+        self.bar.setMaximum(0)
+        self.time = True
         textboxValue = self.textbox.text()
         QMessageBox.question(MainWindow, 'ton texte', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         self.nom = self.textbox.text()
-        print("yolo a!!!! la variable nom est")
+
         print(self.nom)
         print(self.op)
         lireGraph2.start_main(self.Nomserie,self.a,self.nom,self.op)
@@ -115,7 +139,7 @@ class Ui_MainWindow():
         self.scene.clearSelection()
         self.scene.addPixmap(QPixmap("images/" + self.nom +self.op+ ".jpg"))
         self.graphicsView.setScene(self.scene)
-        
+        self.bar.setMaximum(50)
         
     def selectionchange(self,i):
         print ("Items in the list are :")
@@ -157,6 +181,7 @@ class Ui_MainWindow():
         pattern = str(self.le.text())
         self.new_list = [item for item in lireGraph2.dicoNomToNum if item.find(pattern) == 0]
         self.lm.setAllData(self.new_list)
+        
         
         
 if __name__=='__main__':
