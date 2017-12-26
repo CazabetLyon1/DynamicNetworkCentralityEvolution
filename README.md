@@ -8,19 +8,19 @@ Julien Cadier
 
 File List
 ---------
-*./_pycache_
-  lireGraph2.cpython-36.pyc
-  test_lireGraph.cpython-36.pyc
+* ./_pycache_
+ * lireGraph2.cpython-36.pyc
+  *test_lireGraph.cpython-36.pyc
   
-*./data
-  ./bb
-    BB_S01E01_000.graphml
+* ./data
+  *  ./bb
+      BB_S01E01_000.graphml
     ...
 *  ./got
-    GoT_S01E01_000.graphml
+    *  GoT_S01E01_000.graphml
     ...
 *  ./hoc
-    HoC_S01E01_000.graphml
+  *  HoC_S01E01_000.graphml
     ...
 *./images
 *lireGraph2.py
