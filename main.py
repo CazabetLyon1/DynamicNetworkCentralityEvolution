@@ -1,10 +1,11 @@
 from PyQt5 import QtWidgets , QtCore, QtGui
-from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QPushButton,QLabel,QAction, QLineEdit, QMessageBox, QInputDialog, QComboBox, QSpinBox, QProgressBar
+from PyQt5.QtWidgets import QGraphicsScene, QApplication, QFileDialog, QMainWindow,QLCDNumber, QSlider,QVBoxLayout, QPushButton,QLabel,QAction, QLineEdit, QMessageBox, QInputDialog, QComboBox, QSpinBox, QProgressBar,QRadioButton
 from PyQt5.QtGui import QPixmap,QIcon
 from PyQt5.QtCore import QBasicTimer
 import sys
 sys.path.append(".")
 import lireGraph2
+import test_lireGraph
 
 
 
@@ -18,8 +19,9 @@ class Ui_MainWindow():
         self.Nomserie=""
         self.step=0
         self.time=False
+        self.type_graph=""
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("Game of Data")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
@@ -62,9 +64,14 @@ class Ui_MainWindow():
         # Create a button in the window
         self.button = QPushButton('Ok', MainWindow)
         self.button.move(580,320)
+        
+        #Create a button 2 in the window
+        self.button2 = QPushButton('Drawing graphs',MainWindow)
+        self.button2.move(580,165)
  
         # connect button to function on_click
         self.button.clicked.connect(self.on_click)
+        self.button2.clicked.connect(self.on_click2)
         
         #Getchoice
         self.cb = QComboBox(MainWindow)
@@ -94,6 +101,32 @@ class Ui_MainWindow():
         self.cb2.addItem("House of Card")
         self.cb2.currentIndexChanged.connect(self.selectionchange2)
         
+        
+        #Radiobutton for graph
+        
+        self.b0 = QRadioButton("Classical",MainWindow)
+        self.b0.move(580,140)
+        self.b0.setChecked(True)
+        self.b0.toggled.connect(lambda:self.btnstate(self.b0))
+        self.b1 = QRadioButton("Random",MainWindow)
+        self.b1.move(580,80)
+        self.b1.setChecked(True)
+        self.b1.toggled.connect(lambda:self.btnstate(self.b1))
+        self.b2 = QRadioButton("Circular",MainWindow)
+        self.b2.move(580,95)
+        self.b2.setChecked(True)
+        self.b2.toggled.connect(lambda:self.btnstate(self.b2))
+        self.b3 = QRadioButton("Spectral",MainWindow)
+        self.b3.move(580,110)
+        self.b3.setChecked(True)
+        self.b3.toggled.connect(lambda:self.btnstate(self.b3))
+        self.b4 = QRadioButton("Shell",MainWindow)
+        self.b4.move(580,125)
+        self.b4.setChecked(True)
+        self.b4.toggled.connect(lambda:self.btnstate(self.b4))
+        
+        
+        
         if self.time == False :
             #ProgressBar
             self.bar = QProgressBar(MainWindow)
@@ -113,7 +146,7 @@ class Ui_MainWindow():
         self.graphicsView.setScene(self.scene)
         
     def showAbout(self):#permet d'afficher le about du menu
-        QMessageBox.question(MainWindow,'About',"authors of the program: Yannis Hutt and Julien Cadier", QMessageBox.Ok, QMessageBox.Ok)
+        QMessageBox.question(MainWindow,'About',"Authors of the program: Yannis Hutt and Julien Cadier", QMessageBox.Ok, QMessageBox.Ok)
 
         
     def retranslateUi(self, MainWindow):
@@ -127,9 +160,8 @@ class Ui_MainWindow():
         
     def on_click(self):
         self.bar.setMaximum(0)
-        self.time = True
         textboxValue = self.textbox.text()
-        QMessageBox.question(MainWindow, 'ton texte', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
+        QMessageBox.question(MainWindow, 'result', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         self.nom = self.textbox.text()
 
         print(self.nom)
@@ -138,6 +170,15 @@ class Ui_MainWindow():
         self.scene = QGraphicsScene()
         self.scene.clearSelection()
         self.scene.addPixmap(QPixmap("images/" + self.nom +self.op+ ".jpg"))
+        self.graphicsView.setScene(self.scene)
+        self.bar.setMaximum(50)
+    
+    def on_click2(self):
+        self.bar.setMaximum(0)
+        test_lireGraph.start_graph(self.Nomserie,self.type_graph)
+        self.scene = QGraphicsScene()
+        self.scene.clearSelection()
+        self.scene.addPixmap(QPixmap("images/" + self.Nomserie+"_"+self.type_graph+ ".jpg"))
         self.graphicsView.setScene(self.scene)
         self.bar.setMaximum(50)
         
@@ -182,7 +223,41 @@ class Ui_MainWindow():
         self.new_list = [item for item in lireGraph2.dicoNomToNum if item.find(pattern) == 0]
         self.lm.setAllData(self.new_list)
         
-        
+    def btnstate(self,b):
+        if b.text() == "Random":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+                self.type_graph = "Random"
+            else:
+                print(b.text()+" is deselcted")
+       
+        if b.text() == "Circular":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+                self.type_graph = "Circular"
+            else:
+                print(b.text()+" is deselcted")
+            
+        if b.text() == "Spectral":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+                self.type_graph = "Spectral"
+            else:
+                print(b.text()+" is deselcted")	
+  
+        if b.text() == "Shell":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+                self.type_graph = "Shell"
+            else:
+                print(b.text()+" is deselcted")       
+
+        if b.text() == "Classical":
+            if b.isChecked() == True:
+                print(b.text()+" is selected")
+                self.type_graph = "Classical"
+            else:
+                print(b.text()+" is deselcted")       
         
 if __name__=='__main__':
     

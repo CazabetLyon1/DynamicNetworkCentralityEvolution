@@ -11,8 +11,7 @@ tableau_pagerank = []
 tableau_betweeness = []
 dicoNomToNum = dict()
 numNoeud = ""
-#nom = ""
-#nbScenes = ""
+
 
 def type_centralite_voulu(numNoeud, operations) :
     
@@ -49,6 +48,7 @@ def recherche_nom(nom, operations) :
     plt.savefig("images/" + nom + operations + ".jpg")
     
     plt.clf()
+    plt.close('all')
 
 
 def start_main(Nomserie,nbScenes, nom, operations) :
@@ -77,32 +77,13 @@ def start_main(Nomserie,nbScenes, nom, operations) :
             
    
     for l in liste_graph :
-        #l.remove_nodes_from(nx.isolates(l))  ==> Pour enlever les isolates mais on doit les garder pour avoir de bonnes valeurs sur la courbe
-        #nx.draw_networkx(l,pos=nx.spring_layout(l)) 
         """ |== >  Affichage du graphe de la case liste_graph(l)"""
         tableau_degree_centrality.append(nx.degree_centrality(l))  # une façon de lire la centralité
         tableau_closeness_centrality.append(nx.closeness_centrality(l))
         tableau_pagerank.append(nx.pagerank(l))
         tableau_betweeness.append(nx.betweenness_centrality(l))
             
-#    graph_style(liste_graph)
     recherche_nom(nom, operations)
- 
-"""  
-def graph_style(liste) : 
-    for l in liste :
-        l.remove_nodes_from(nx.isolates(l))  #==> Pour enlever les isolates mais on doit les garder pour avoir de bonnes valeurs sur la courbe
-        nx.draw_networkx(l,pos=nx.spring_layout(l)) 
-"""
-#start_main("Breaking Bad",200, "Walter White", "d")
 
 
-""" 
-Idée amélioration : 
- 
-- Chercher les 3 persos avec la plus grosse centralité
-- Fusionner des graphes pour avoir une centralité plus importante
-- Changer de façon pour la centralité (autre que degree_centrality())
-- Pouvoir choisir le type de centralité
-- Pouvoir lire plusieurs persos sans fermer le code
- """
+
