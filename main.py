@@ -21,7 +21,7 @@ class Ui_MainWindow():
         self.time=False
         self.type_graph=""
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("Game of Data")
+        MainWindow.setObjectName("MainWindow")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)

@@ -1,13 +1,13 @@
 RC3-Yannis Hutt 11408376 Julien Cadier 11510421
 =======
 
-Author
+Auteurs
 -------
 Yannis Hutt
 Julien Cadier
 
-File List
----------
+liste des fichiers
+-------------------
 * ./_pycache_
  * lireGraph2.cpython-36.pyc
   *test_lireGraph.cpython-36.pyc
@@ -22,10 +22,33 @@ File List
 *  ./hoc
   *  HoC_S01E01_000.graphml
     ...
-*./images
-*lireGraph2.py
-*main.py
-*test_lireGraph.py
-*Readme.md
+* ./images
 
 
+* lireGraph2.py
+* main.py
+* test_lireGraph.py
+* Readme.md
+
+
+Comment le lancer
+----------------
+On lance le programme depuis le fichier main.py dans une console python
+python main.py
+
+Mode d'emplois
+---------------
+Le main.py lance une interface graphique qui se compose d'une zone d'affichage pour le résultat,
+et de commande sur le côté droit pour faire les différentes opérations, ainsi qu'un menu sur le haut de la fenêtre pour charger une image depuis les fichiers ainsi qu'un "About".
+Le premier menu déroulant permet de choisir une série à charger.
+Les options en dessous permettent de choisir le style de graphique que ont veut, ainsi on cliquer sur "Drawing graphs" pour afficher.
+
+Le deuxièmes menu déroulant permet de choisir une opération a appliquer sur un nombre de scène.
+On dispose en-dessous d'une zone de texte pour écrire le nom du personnage et un  button Ok pour débuter le traitement.
+
+Bibliothèque
+-------------
+* Networkx
+* Seaborn
+* matplotlib
+* PYQT5
