@@ -24,6 +24,9 @@ liste des fichiers
     ...
 * ./images
 
+* ./doc
+  * Rapport LIFPROJET HUTT_CADIER.pdf
+
 
 * lireGraph2.py
 * main.py
