@@ -20,6 +20,8 @@ class Ui_MainWindow():
         self.step=0
         self.time=False
         self.type_graph=""
+        
+        
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         self.centralwidget = QtWidgets.QWidget(MainWindow)

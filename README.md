@@ -36,15 +36,15 @@ Comment le lancer
 On lance le programme depuis le fichier main.py dans une console python
 python main.py
 
-Mode d'emplois
+Mode d'emploi
 ---------------
 Le main.py lance une interface graphique qui se compose d'une zone d'affichage pour le résultat,
 et de commande sur le côté droit pour faire les différentes opérations, ainsi qu'un menu sur le haut de la fenêtre pour charger une image depuis les fichiers ainsi qu'un "About".
 Le premier menu déroulant permet de choisir une série à charger.
-Les options en dessous permettent de choisir le style de graphique que ont veut, ainsi on cliquer sur "Drawing graphs" pour afficher.
+Les options en dessous permettent de choisir le style de graphique que l'on veut, ainsi on peut cliquer sur "Drawing graphs" pour afficher.
 
-Le deuxièmes menu déroulant permet de choisir une opération a appliquer sur un nombre de scène.
-On dispose en-dessous d'une zone de texte pour écrire le nom du personnage et un  button Ok pour débuter le traitement.
+Le deuxième menu déroulant permet de choisir une opération à appliquer sur un nombre de scène.
+On dispose en-dessous d'une zone de texte pour écrire le nom du personnage et un bouton "Ok" pour débuter le traitement.
 
 Bibliothèque
 -------------
