@@ -151,7 +151,7 @@ class Ui_MainWindow():
         QMessageBox.question(MainWindow,'About',"Authors of the program: Yannis Hutt and Julien Cadier", QMessageBox.Ok, QMessageBox.Ok)
 
         
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, MainWindow):#permet de faire le menu déroulant
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Mainwindow"))
         self.menuFile.setTitle(_translate("MainWindow","F&ile"))
@@ -160,7 +160,7 @@ class Ui_MainWindow():
         self.actionExit.setText(_translate("MainWindow","Exit"))
         
         
-    def on_click(self):
+    def on_click(self): #permet de faire l'évenement pour faire le graph
         self.bar.setMaximum(0)
         textboxValue = self.textbox.text()
         QMessageBox.question(MainWindow, 'result', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
@@ -184,7 +184,7 @@ class Ui_MainWindow():
         self.graphicsView.setScene(self.scene)
         self.bar.setMaximum(50)
         
-    def selectionchange(self,i):
+    def selectionchange(self,i): # permet de faire la selection des opérations
         print ("Items in the list are :")
         for count in range(self.cb.count()):
             print (self.cb.itemText(count))
@@ -225,7 +225,7 @@ class Ui_MainWindow():
         self.new_list = [item for item in lireGraph2.dicoNomToNum if item.find(pattern) == 0]
         self.lm.setAllData(self.new_list)
         
-    def btnstate(self,b):
+    def btnstate(self,b): #permet de savoir quelle graph faire
         if b.text() == "Random":
             if b.isChecked() == True:
                 print(b.text()+" is selected")
