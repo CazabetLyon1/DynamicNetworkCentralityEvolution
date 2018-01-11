@@ -19,8 +19,6 @@ def type_centralite_voulu(numNoeud, operations) :
     i = 0
     tab =[]
 
-   """En fonction de la valeur rentrée en paramètre, on choisit la bonne centralité
-   dans chacun des cas, on extrait des données les informations du personnages qui nous intéresse """
     if 'd' in liste:
         tab.append([x[numNoeud] for x in tableau_degree_centrality])
         sns.tsplot(tab[i], color = "blue")
@@ -40,8 +38,6 @@ def type_centralite_voulu(numNoeud, operations) :
 
 
 def recherche_nom(nom, operations) :
-   """Cette fonction est surtout là pour changer le nom de personnage donné en paramètre en son id associé afin que la recherche suivante soit claire
-   Cette fonction est aussi là pour enregistrer le plot en image"""
     nomNoeud = str(nom)
     numNoeud = dicoNomToNum[nomNoeud]
     
